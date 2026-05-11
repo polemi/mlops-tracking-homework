@@ -1,0 +1,12 @@
+ai-vs-human-generated-dataset*
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+*.pyc
+.venv/
+.env
+cache/
+runs/
+*.log
+artifacts/*
+!artifacts/.gitignore

@@ -1,0 +1,81 @@
+{
+  "base_test_accuracy": 0.96347260445334,
+  "finetuned_test_accuracy": 0.971,
+  "base_test_f1_macro": 0.9634656868121824,
+  "finetuned_test_f1_macro": 0.9709872053575628,
+  "test_accuracy_delta": 0.007527395546659932,
+  "test_f1_macro_delta": 0.007521518545380412,
+  "rows": [
+    {
+      "split": "train",
+      "metric": "loss",
+      "base": 0.06701189824276997,
+      "finetuned": 0.05574334607745502,
+      "delta": -0.01126855216531495
+    },
+    {
+      "split": "train",
+      "metric": "accuracy",
+      "base": 0.974382067447213,
+      "finetuned": 0.978984238178634,
+      "delta": 0.004602170731420996
+    },
+    {
+      "split": "train",
+      "metric": "f1_macro",
+      "base": 0.9743820610337526,
+      "finetuned": 0.9789776048640257,
+      "delta": 0.004595543830273163
+    },
+    {
+      "split": "train",
+      "metric": "precision_macro",
+      "base": 0.9743820610337526,
+      "finetuned": 0.9789542608389896,
+      "delta": 0.004572199805237043
+    },
+    {
+      "split": "train",
+      "metric": "recall_macro",
+      "base": 0.9743820610337526,
+      "finetuned": 0.9790053650326109,
+      "delta": 0.004623303998858352
+    },
+    {
+      "split": "test",
+      "metric": "loss",
+      "base": 0.10152377421211117,
+      "finetuned": 0.08975216836854816,
+      "delta": -0.011771605843563016
+    },
+    {
+      "split": "test",
+      "metric": "accuracy",
+      "base": 0.96347260445334,
+      "finetuned": 0.971,
+      "delta": 0.007527395546659932
+    },
+    {
+      "split": "test",
+      "metric": "f1_macro",
+      "base": 0.9634656868121824,
+      "finetuned": 0.9709872053575628,
+      "delta": 0.007521518545380412
+    },
+    {
+      "split": "test",
+      "metric": "precision_macro",
+      "base": 0.9637762242668079,
+      "finetuned": 0.9715530561338472,
+      "delta": 0.007776831867039369
+    },
+    {
+      "split": "test",
+      "metric": "recall_macro",
+      "base": 0.9634568988051064,
+      "finetuned": 0.9709192729818246,
+      "delta": 0.007462374176718134
+    }
+  ],
+  "conclusion": "После дообучения качество на тестовой выборке выросло по macro F1. Это означает, что модель смогла использовать данные Train_2 и лучше обобщается на Test_2."
+}

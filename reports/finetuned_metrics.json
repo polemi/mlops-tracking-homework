@@ -1,0 +1,93 @@
+{
+  "stage": "finetune",
+  "device": "cuda",
+  "train_split": "Train_2",
+  "test_split": "Test_2",
+  "label_to_idx": {
+    "0": 0,
+    "1": 1
+  },
+  "params": {
+    "train_split": "Train_2",
+    "test_split": "Test_2",
+    "epochs": 3,
+    "batch_size": 32,
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "step_size": 2,
+    "gamma": 0.5,
+    "num_workers": 4,
+    "seed": 43
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train": {
+        "accuracy": 0.957968476357268,
+        "f1_macro": 0.9579559468364651,
+        "precision_macro": 0.9579281315237993,
+        "recall_macro": 0.9579914440002806,
+        "loss": 0.11925884362329743
+      },
+      "test": {
+        "accuracy": 0.97,
+        "f1_macro": 0.9699932484809082,
+        "precision_macro": 0.9702313946216385,
+        "recall_macro": 0.9699492487312182,
+        "loss": 0.0828451968356967
+      },
+      "lr": 0.0001
+    },
+    {
+      "epoch": 2,
+      "train": {
+        "accuracy": 0.9704778583937953,
+        "f1_macro": 0.9704657293101177,
+        "precision_macro": 0.9704857927817171,
+        "recall_macro": 0.9704476120345045,
+        "loss": 0.07713520741437356
+      },
+      "test": {
+        "accuracy": 0.9735,
+        "f1_macro": 0.9734994633641332,
+        "precision_macro": 0.9734975759612154,
+        "recall_macro": 0.9735018375459386,
+        "loss": 0.0798722962513566
+      },
+      "lr": 5e-05
+    },
+    {
+      "epoch": 3,
+      "train": {
+        "accuracy": 0.978984238178634,
+        "f1_macro": 0.9789776048640257,
+        "precision_macro": 0.9789542608389896,
+        "recall_macro": 0.9790053650326109,
+        "loss": 0.05574334607745502
+      },
+      "test": {
+        "accuracy": 0.971,
+        "f1_macro": 0.9709872053575628,
+        "precision_macro": 0.9715530561338472,
+        "recall_macro": 0.9709192729818246,
+        "loss": 0.08975216836854816
+      },
+      "lr": 5e-05
+    }
+  ],
+  "final_train_metrics": {
+    "accuracy": 0.978984238178634,
+    "f1_macro": 0.9789776048640257,
+    "precision_macro": 0.9789542608389896,
+    "recall_macro": 0.9790053650326109,
+    "loss": 0.05574334607745502
+  },
+  "final_test_metrics": {
+    "accuracy": 0.971,
+    "f1_macro": 0.9709872053575628,
+    "precision_macro": 0.9715530561338472,
+    "recall_macro": 0.9709192729818246,
+    "loss": 0.08975216836854816
+  },
+  "s3_model_uri": "s3://mlops-homework/models/finetuned_model.pt"
+}

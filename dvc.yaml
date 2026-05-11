@@ -1,0 +1,53 @@
+stages:
+  train_base:
+    cmd: TORCH_HOME=cache/torch python src/run_training.py --stage base --params params.yaml
+    deps:
+      - src/mlops_utils.py
+      - src/run_training.py
+      - params.yaml
+      - ai-vs-human-generated-dataset-hw/Train_1
+      - ai-vs-human-generated-dataset-hw/Test_1
+    params:
+      - project
+      - model
+      - s3
+      - train_base
+    outs:
+      - artifacts/base_model.pt
+    metrics:
+      - reports/base_metrics.json:
+          cache: false
+
+  finetune:
+    cmd: TORCH_HOME=cache/torch python src/run_training.py --stage finetune --params params.yaml
+    deps:
+      - src/mlops_utils.py
+      - src/run_training.py
+      - params.yaml
+      - ai-vs-human-generated-dataset-hw/Train_2
+      - ai-vs-human-generated-dataset-hw/Test_2
+      - artifacts/base_model.pt
+    params:
+      - project
+      - model
+      - s3
+      - finetune
+    outs:
+      - artifacts/finetuned_model.pt
+    metrics:
+      - reports/finetuned_metrics.json:
+          cache: false
+
+  compare:
+    cmd: python src/compare_models.py --base reports/base_metrics.json --finetuned reports/finetuned_metrics.json --output-json reports/comparison.json --output-md reports/comparison.md
+    deps:
+      - src/mlops_utils.py
+      - src/compare_models.py
+      - reports/base_metrics.json
+      - reports/finetuned_metrics.json
+    metrics:
+      - reports/comparison.json:
+          cache: false
+    outs:
+      - reports/comparison.md:
+          cache: false

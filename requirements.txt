@@ -1,0 +1,15 @@
+torch==2.8.0
+torchvision==0.23.0
+pandas
+numpy
+pillow
+scikit-learn
+tqdm
+matplotlib
+tensorboard
+PyYAML
+boto3
+dvc==3.58.0
+pathspec==0.11.2
+nbconvert
+ipykernel

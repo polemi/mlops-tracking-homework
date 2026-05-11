@@ -1,0 +1,168 @@
+schema: '2.0'
+stages:
+  train_base:
+    cmd: TORCH_HOME=cache/torch python src/run_training.py --stage base --params
+      params.yaml
+    deps:
+    - path: ai-vs-human-generated-dataset-hw/Test_1
+      hash: md5
+      md5: 62c3780e5c19bc53638a42e202acda77.dir
+      size: 229951307
+      nfiles: 3998
+    - path: ai-vs-human-generated-dataset-hw/Train_1
+      hash: md5
+      md5: be4fba47d09ac1e4ff93610c7ce22370.dir
+      size: 577186450
+      nfiles: 9994
+    - path: params.yaml
+      hash: md5
+      md5: d80367250495cab03b76ce81b4e1a5f1
+      size: 791
+    - path: src/mlops_utils.py
+      hash: md5
+      md5: d644d89ddb75ed0b21d19e9452ada685
+      size: 10181
+    - path: src/run_training.py
+      hash: md5
+      md5: 3b11d077750e97db445803a801a47c17
+      size: 5422
+    params:
+      params.yaml:
+        model:
+          architecture: resnet18
+          pretrained: true
+          freeze_backbone: false
+          num_classes: 2
+        project:
+          data_dir: ai-vs-human-generated-dataset-hw
+          artifacts_dir: artifacts
+          reports_dir: reports
+          logs_dir: runs
+        s3:
+          enabled: true
+          endpoint_url: http://localhost:9000
+          bucket: mlops-homework
+          access_key: minioadmin
+          secret_key: minioadmin
+          base_model_key: models/base_model.pt
+          finetuned_model_key: models/finetuned_model.pt
+        train_base:
+          train_split: Train_1
+          test_split: Test_1
+          epochs: 5
+          batch_size: 32
+          lr: 0.0003
+          weight_decay: 0.0001
+          step_size: 3
+          gamma: 0.5
+          num_workers: 4
+          seed: 42
+    outs:
+    - path: artifacts/base_model.pt
+      hash: md5
+      md5: 203478cdca44eeb3b4d00abe08e51d0d
+      size: 44791435
+    - path: reports/base_metrics.json
+      hash: md5
+      md5: 1b0f1d609e95dc82b5c3959fdfb90d78
+      size: 3461
+  finetune:
+    cmd: TORCH_HOME=cache/torch python src/run_training.py --stage finetune 
+      --params params.yaml
+    deps:
+    - path: ai-vs-human-generated-dataset-hw/Test_2
+      hash: md5
+      md5: be5492c21e2dec84056e1599a807ccd1.dir
+      size: 114391042
+      nfiles: 2001
+    - path: ai-vs-human-generated-dataset-hw/Train_2
+      hash: md5
+      md5: cd8edb58d893e35241fdf8fbf6049229.dir
+      size: 229344118
+      nfiles: 3998
+    - path: artifacts/base_model.pt
+      hash: md5
+      md5: 203478cdca44eeb3b4d00abe08e51d0d
+      size: 44791435
+    - path: params.yaml
+      hash: md5
+      md5: d80367250495cab03b76ce81b4e1a5f1
+      size: 791
+    - path: src/mlops_utils.py
+      hash: md5
+      md5: d644d89ddb75ed0b21d19e9452ada685
+      size: 10181
+    - path: src/run_training.py
+      hash: md5
+      md5: 3b11d077750e97db445803a801a47c17
+      size: 5422
+    params:
+      params.yaml:
+        finetune:
+          train_split: Train_2
+          test_split: Test_2
+          epochs: 3
+          batch_size: 32
+          lr: 0.0001
+          weight_decay: 0.0001
+          step_size: 2
+          gamma: 0.5
+          num_workers: 4
+          seed: 43
+        model:
+          architecture: resnet18
+          pretrained: true
+          freeze_backbone: false
+          num_classes: 2
+        project:
+          data_dir: ai-vs-human-generated-dataset-hw
+          artifacts_dir: artifacts
+          reports_dir: reports
+          logs_dir: runs
+        s3:
+          enabled: true
+          endpoint_url: http://localhost:9000
+          bucket: mlops-homework
+          access_key: minioadmin
+          secret_key: minioadmin
+          base_model_key: models/base_model.pt
+          finetuned_model_key: models/finetuned_model.pt
+    outs:
+    - path: artifacts/finetuned_model.pt
+      hash: md5
+      md5: 4d93645de2f1204f554db907a6e99306
+      size: 44791691
+    - path: reports/finetuned_metrics.json
+      hash: md5
+      md5: e0de7c7ab55ca9181db94a47b0b5eefa
+      size: 2393
+  compare:
+    cmd: python src/compare_models.py --base reports/base_metrics.json 
+      --finetuned reports/finetuned_metrics.json --output-json 
+      reports/comparison.json --output-md reports/comparison.md
+    deps:
+    - path: reports/base_metrics.json
+      hash: md5
+      md5: 1b0f1d609e95dc82b5c3959fdfb90d78
+      size: 3461
+    - path: reports/finetuned_metrics.json
+      hash: md5
+      md5: e0de7c7ab55ca9181db94a47b0b5eefa
+      size: 2393
+    - path: src/compare_models.py
+      hash: md5
+      md5: f53b409cc1176df0d5a218c01262ee4d
+      size: 3962
+    - path: src/mlops_utils.py
+      hash: md5
+      md5: d644d89ddb75ed0b21d19e9452ada685
+      size: 10181
+    outs:
+    - path: reports/comparison.json
+      hash: md5
+      md5: beb71754a0a551ba0539956850af130f
+      size: 2307
+    - path: reports/comparison.md
+      hash: md5
+      md5: 5d6ec575d17a4fae849d504386829fa5
+      size: 904

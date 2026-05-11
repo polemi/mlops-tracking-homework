@@ -1,0 +1,44 @@
+project:
+  data_dir: ai-vs-human-generated-dataset-hw
+  artifacts_dir: artifacts
+  reports_dir: reports
+  logs_dir: runs
+
+model:
+  architecture: resnet18
+  pretrained: true
+  freeze_backbone: false
+  num_classes: 2
+
+s3:
+  enabled: true
+  endpoint_url: http://localhost:9000
+  bucket: mlops-homework
+  access_key: minioadmin
+  secret_key: minioadmin
+  base_model_key: models/base_model.pt
+  finetuned_model_key: models/finetuned_model.pt
+
+train_base:
+  train_split: Train_1
+  test_split: Test_1
+  epochs: 5
+  batch_size: 32
+  lr: 0.0003
+  weight_decay: 0.0001
+  step_size: 3
+  gamma: 0.5
+  num_workers: 4
+  seed: 42
+
+finetune:
+  train_split: Train_2
+  test_split: Test_2
+  epochs: 3
+  batch_size: 32
+  lr: 0.0001
+  weight_decay: 0.0001
+  step_size: 2
+  gamma: 0.5
+  num_workers: 4
+  seed: 43
