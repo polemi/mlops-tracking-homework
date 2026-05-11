@@ -106,3 +106,4 @@ dvc dag
 - Access key: `minioadmin`
 - Secret key: `minioadmin`
 - Bucket: `mlops-homework`
+

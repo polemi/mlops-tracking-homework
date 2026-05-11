@@ -291,3 +291,4 @@ def download_from_s3(local_path: str, s3_cfg: dict, key: str) -> str:
     Path(local_path).parent.mkdir(parents=True, exist_ok=True)
     client.download_file(s3_cfg["bucket"], key, local_path)
     return local_path
+
